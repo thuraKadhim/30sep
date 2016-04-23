@@ -1,0 +1,199 @@
+﻿@using _30sep.Models;
+@model _30sep.Models.Book
+        
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Book Details</h2>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <div class="row">
+        <div class="col-lg-8">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AspNetUsers.Email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Author.FirstName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Author.FirstName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Genre.GenreName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Genre.GenreName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+
+                
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ISBN)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ISBN)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+              
+
+            </dl>
+        </div>
+
+        <div class="col-lg-4">
+            <img src=@Url.Content(Model.Imagepath) class="DetialImage">
+        </div>
+    </div>
+</div>
+
+<div>
+    <dl>
+        <dt>
+            <h3> @Html.DisplayNameFor(model => model.Review)</h3>
+        </dt>
+    </dl>
+</div>
+<div>
+    @foreach (var review in Model.Review)
+    {
+        if (review.Title != "")
+        {
+            <hr />
+            <div>
+                <dl>
+                    <dt> @review.Title</dt>
+                    <br />
+                    <dt class="well"> @review.Description</dt>
+                    @{
+            var average = int.Parse(ViewData["Average"].ToString());
+            var averageinreview = review.Rating;
+            switch (averageinreview)
+            {
+                case 1:
+                    average = 1;
+                    <p class="star"></p>
+                    break;
+                case 2:
+                    average = 2;
+                    <p class="star-2"></p>
+                    break;
+                case 3:
+                    average = 3;
+                    <p class="star-3"></p>
+                    break;
+                case 4:
+                    average = 4;
+                    <p class="star-4"></p>
+                    break;
+                case 5:
+                    average = 5;
+                    <p class="star-5"></p>
+                    break;
+            }
+                    }
+                    <dt>By:@review.AspNetUsers.UserName </dt>
+                </dl>
+                <div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (Model.AspNetUsers.Id.Equals(review.AspNetUsers.Id))
+                        {
+                            @Html.ActionLink("Delete", "Delete", "Reviews", new { id = review.ReviewId }, null)
+                            @Html.Label(" | ")
+                            @Html.ActionLink("Edit", "Edit", "Reviews", new { id = review.ReviewId }, null)
+                        }
+                    }
+                </div>
+            </div>
+        }
+        <br />
+    }
+    <hr />
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div>
+            <h3> Rate & review:</h3><br />
+            @using (Html.BeginForm("CreateReview", "Books"))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <div class="welll">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(b => b.BookId)
+                        <div class="stars">
+                            <input type="radio" name="star" value="1" class="star-1" id="star-1" />
+                            <label class="star-1" for="star-1">1</label>
+                            <input type="radio" name="star" value="2" class="star-2" id="star-2" />
+                            <label class="star-2" for="star-2">2</label>
+                            <input type="radio" name="star" value="3" class="star-3" id="star-3" />
+                            <label class="star-3" for="star-3">3</label>
+                            <input type="radio" name="star" value="4" class="star-4" id="star-4" />
+                            <label class="star-4" for="star-4">4</label>
+                            <input type="radio" name="star" value="5" class="star-5" id="star-5" />
+                            <label class="star-5" for="star-5">5</label>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="well">
+                    @{if (@Model.Title != null)
+                    {
+                        @Html.Label("Titel", new { style = "width:20px;" })<br />
+                        @Html.TextBox("Title", "")<br /><br />
+                    }
+                    }
+                   
+                       
+                            <p>
+                                @Html.Label("My review")
+                                 
+                            </p>
+                            <textarea name="Review"  class="form-control" maxlength="300"></textarea>
+                   
+                        
+                    </div>
+                   
+            
+               
+                    <div >
+                        
+                        <input type="submit" value="Create" class="btn-info" width="100" />
+                     
+                    </div>
+
+                   
+                <br/>
+    @Html.ActionLink("Back to startpage", "Index", "Home")
+            }
+        </div>
+    }
+</div>

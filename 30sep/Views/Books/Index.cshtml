@@ -1,0 +1,63 @@
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<_30sep.Models.Book>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Books</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Author.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre.GenreName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre.GenreName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td class="body-content">
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+       
+        <td>
+            @if (Request.IsAuthenticated )
+            {
+                if( User.IsInRole("Admin") || item.UserId == User.Identity.GetUserId())
+            {
+                 @Html.ActionLink("Edit", "Edit", new { id=item.BookId })
+            }
+            }
+
+            @Html.ActionLink("Details", "Details", new { id=item.BookId }) 
+           
+        </td>
+    </tr>
+}
+
+</table>

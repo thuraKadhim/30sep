@@ -1,0 +1,38 @@
+﻿@model IEnumerable<_30sep.Models.Book>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@using Microsoft.AspNet.Identity;
+@using System.Linq;
+ @using System.Data.Entity;
+<div class="afterimage">
+    <a href="@Url.RouteUrl("Default", new {action = "Details", controller = "Books", id = ViewData["RandomBookId"]
+                       })">
+        <img src="@ViewData["BookImage"]" alt="Smiley face" class="img-responsive center-block " />
+    </a>
+</div>
+
+
+
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="@Url.RouteUrl("Default", new {action = "Details", controller = "Books", id = item.BookId})">
+                    <img class="img-responsive" src=@Url.Content(item.Imagepath) alt="Smiley face">
+                </a>
+            </div>
+        }
+    </div>
+
+
+
+
+
+
+

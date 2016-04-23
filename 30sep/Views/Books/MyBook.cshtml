@@ -1,0 +1,80 @@
+﻿
+
+@model IEnumerable<_30sep.Models.Book>
+
+@{
+    ViewBag.Title = "MyBook";
+}
+
+<h2>MyBook</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+                </th>*@
+
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ISBN)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Imagepath)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Author.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre.GenreName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.AspNetUsers.Email)
+                </td>*@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBN)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Imagepath)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre.GenreName)
+            </td>
+            <td>
+
+                @if (Request.IsAuthenticated && (System.Web.HttpContext.Current.User.IsInRole("Administrator") || System.Web.HttpContext.Current.User.IsInRole("User")))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BookId }, new { @class = "btn-info" })
+                }
+                @Html.ActionLink("Details", "Details", new { id = item.BookId }) 
+                @Html.ActionLink("Delete", "Delete", new { id = item.BookId })
+
+            </td>
+        </tr>
+    }
+
+</table>
+
