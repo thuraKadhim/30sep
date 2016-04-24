@@ -7,7 +7,11 @@
 <h2>Genres</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if(User.Identity.IsAuthenticated)
+    {
+      @Html.ActionLink("Create New", "Create")
+    }
+    
 </p>
 <table class="table">
     <tr>
@@ -29,9 +33,23 @@
             @Html.DisplayFor(modelItem => item.Genredescirption)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.GenreId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.GenreId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GenreId })
+            <div class="col-md-4">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="col-md-4">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.GenreId })
+
+                        </div>
+                    <div class="col-md-4">
+                      @Html.ActionLink("Delete", "Delete", new { id = item.GenreId })
+                         </div>
+                }
+                <div class="col-md-4">
+
+                    @Html.ActionLink("Details", "Details", new { id = item.GenreId })
+                    </div>
+                </div>
+
         </td>
     </tr>
 }
