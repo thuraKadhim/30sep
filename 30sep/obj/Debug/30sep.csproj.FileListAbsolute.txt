@@ -52,4 +52,3 @@ E:\Thura\30sep\30sep\bin\Microsoft.Owin.Security.Twitter.xml
 E:\Thura\30sep\30sep\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\Thura\30sep\30sep\obj\Debug\30sep.dll
 E:\Thura\30sep\30sep\obj\Debug\30sep.pdb
-E:\Thura\30sep\30sep\obj\Debug\30sep.csprojResolveAssemblyReference.cache
