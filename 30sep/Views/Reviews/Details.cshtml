@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Details";
 }
+@using Microsoft.AspNet.Identity;
+
 
 <h2>Details</h2>
 
@@ -53,6 +55,12 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ReviewId }) |
+    @if(User.Identity.IsAuthenticated && Model.UserId==User.Identity.GetUserId())
+    {
+      @Html.ActionLink("Edit", "Edit", new { id = Model.ReviewId }) 
+        <span>|</span>
+     }
     @Html.ActionLink("Back to List", "Index")
+   
+    
 </p>
