@@ -1,13 +1,20 @@
-﻿@model IEnumerable<_30sep.Models.Review>
+﻿
+@model IEnumerable<_30sep.Models.Review>
 
 @{
     ViewBag.Title = "Index";
 }
+@using Microsoft.AspNet.Identity;
+
 
 <h2>Reviews</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+   
 </p>
 <table class="table">
     <tr>
@@ -47,9 +54,19 @@
             @Html.DisplayFor(modelItem => item.Rating)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ReviewId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ReviewId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ReviewId })
+            @Html.ActionLink("Details", "Details", new { id = item.ReviewId }) 
+            @if (User.Identity.IsAuthenticated)
+            {
+
+                if (User.Identity.GetUserId() == item.UserId)
+                { 
+                    <span>|</span>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.ReviewId })
+                   <span>|</span>
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ReviewId })  
+                }
+            }
+            
         </td>
     </tr>
 }
