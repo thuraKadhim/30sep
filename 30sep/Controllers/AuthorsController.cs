@@ -36,6 +36,7 @@ namespace _30sep.Controllers
         }
 
         // GET: Authors/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -59,6 +60,7 @@ namespace _30sep.Controllers
         }
 
         // GET: Authors/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +92,7 @@ namespace _30sep.Controllers
         }
 
         // GET: Authors/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
