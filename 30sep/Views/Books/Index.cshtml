@@ -9,7 +9,8 @@
 <h2>Books</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if(User.Identity.IsAuthenticated)
+    { @Html.ActionLink("Create New", "Create")}
 </p>
 <table class="table">
     <tr>

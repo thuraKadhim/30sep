@@ -28,7 +28,12 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AuthorId }) |
+<p class="dl-horizontal">
+    @if(User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.AuthorId })
+        <span>|</span>
+    }
+  
     @Html.ActionLink("Back to List", "Index")
 </p>
