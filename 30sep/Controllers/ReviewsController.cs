@@ -38,6 +38,7 @@ namespace _30sep.Controllers
         }
 
         // GET: Reviews/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
@@ -68,6 +69,7 @@ namespace _30sep.Controllers
             return View(review);
         }
                 // GET: Reviews/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -103,6 +105,7 @@ namespace _30sep.Controllers
         }
 
         // GET: Reviews/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
