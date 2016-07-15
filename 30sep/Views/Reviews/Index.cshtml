@@ -54,16 +54,16 @@
             @Html.DisplayFor(modelItem => item.Rating)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.ReviewId }) 
+            @Html.ActionLink("Details", "Details", new { id = item.ReviewId }, new {@class="col-md-4" }) 
             @if (User.Identity.IsAuthenticated)
             {
 
                 if (User.Identity.GetUserId() == item.UserId)
                 { 
-                    <span>|</span>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.ReviewId })
-                   <span>|</span>
-                    @Html.ActionLink("Delete", "Delete", new { id=item.ReviewId })  
+                    
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ReviewId }, new { @class = "col-md-4" })
+                   
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ReviewId }, new { @class = "col-md-4" })  
                 }
             }
             
