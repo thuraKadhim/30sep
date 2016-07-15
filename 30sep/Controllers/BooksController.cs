@@ -82,18 +82,49 @@ namespace _30sep.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "BookId,Title,Description,ISBN,AuthorID,GenreId,UserId,Imagepath")] Book book, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "BookId,Title,Description,ISBN,AuthorID,GenreId,UserId,Imagepath")] Book book, HttpPostedFileBase image)
         {
             ModelState.Remove("BookId");
             ModelState.Remove("UserId");
+            ModelState.Remove("Imagepath");
+            var allowedExtensions = new[] { ".Jpg", ".png", ".jpg", "jpeg" };
             book.UserId=User.Identity.GetUserId();
            
 
                 if (ModelState.IsValid)
                 {
-                    db.Book.Add(book);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    if (image != null)
+                    {
+                        
+                        var filename = image.FileName;
+                        //check if the uploaded file is an image
+                        var fileExtention = Path.GetExtension(filename);
+                        var ex =Array.IndexOf(allowedExtensions,fileExtention);
+                        if(ex > -1)
+                        {
+                            var filePath = Server.MapPath("/Content/images");
+
+                            string savedFileName = Path.Combine(filePath, filename);
+                            //save image 
+                            image.SaveAs(savedFileName);
+                         
+                            book.Imagepath = "/Content/images/" + filename;
+                           db.Book.Add(book);
+                           db.SaveChanges();
+                          return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ViewData["ImageFile"] = " only image files are allowed";
+                           
+                        }
+
+                    }
+                    else
+                    {
+                        ViewData["requiredimage"] = "image is required";
+                       
+                    }
                 }
             
          
