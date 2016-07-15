@@ -78,8 +78,11 @@
                         
 
                         @Html.ValidationMessageFor(model => model.Imagepath, "", new { @class="text-danger"})
-                        @ViewData["ImageFile"]
-                        @ViewData["requiredimage"]
+                        <div class="text-danger">
+                            @ViewData["ImageFile"]
+                            @ViewData["requiredimage"]
+                        </div>
+                           
 
                         <br />
                     </div>
